@@ -1,0 +1,65 @@
+/* Home Page Styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background */
+}
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    background-color: #678c9d; /* Subtle blue shade */
+    color: #ffe0b2; /* Creamy text color */
+}
+
+.home-container .content {
+    text-align: left;
+    max-width: 50%;
+}
+
+.home-container h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.home-container p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    max-width: 400px;
+    line-height: 1.6;
+}
+
+.home-btn {
+    background-color: #795548; /* Chocolate brown button */
+    color: #fff; /* White text */
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+}
+
+.home-btn:hover {
+    background-color: #4e342e; /* Darker chocolate hover effect */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Image Section Styling */
+.image-section {
+    max-width: 50%;
+}
+
+.stock-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+
