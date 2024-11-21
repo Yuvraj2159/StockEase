@@ -9,7 +9,7 @@
 <body>
     <div class="home-container">
         <div class="content">
-        <form method="POST" action="login.php.php">
+        <form method="POST" action="login.php">
             <h1>Welcome to STOCKEASE</h1>
             <p>Manage your stock inventory with ease. Simplify your business with our efficient and user-friendly platform.</p>
             <a href="login.php" class="home-btn">Get Started</a>

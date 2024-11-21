@@ -1,0 +1,104 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #678c9d, #795548); /* Background gradient */
+    color: #fff; /* White text for contrast */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Registration Container */
+.register-container {
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent white */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.register-container h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.register-container h1 .highlight {
+    color: #ffe0b2; /* Highlight text */
+}
+
+.register-container p {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+form label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #ffe0b2;
+}
+
+form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffe0b2; /* Light cream color */
+    color: #333; /* Darker text */
+    font-size: 14px;
+}
+
+form input::placeholder {
+    color: #555;
+}
+
+form input:focus {
+    outline: none;
+    border: 2px solid #4e342e; /* Focus border */
+}
+
+/* Button Styles */
+.register-btn {
+    background-color: #795548; /* Chocolate button */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+    background-color: #4e342e; /* Darker button on hover */
+    transform: scale(1.05);
+}
+
+/* Login Link */
+.login-link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #ffe0b2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
