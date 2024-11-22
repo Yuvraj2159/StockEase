@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - STOCKEASE</title>
-    <link rel="stylesheet" href="Register.css"> <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="./css/Register.css"> <!-- Link to the CSS file -->
 </head>
 <body>
     <div class="register-container">
