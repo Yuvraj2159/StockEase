@@ -1,22 +1,23 @@
 /* General Styles */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #678c9d, #795548); /* Chocolate and blue gradient */
-    color: #fff;
+    font-family: 'Poppins', sans-serif; /* Modern font */
+    background: linear-gradient(135deg, #b3d9ff, #f6d8ac); /* Light blue and peach gradient */
+    color: #333; /* Dark gray text for readability */
 }
 
 /* Header Styles */
 .dashboard-header {
-    background-color: #4e342e; /* Dark chocolate */
+    background-color: #2b6777; /* Cool blue-gray */
     padding: 20px;
     text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .dashboard-header h1 {
     margin: 0;
-    font-size: 24px;
-    color: #ffe0b2;
+    font-size: 28px;
+    color: #ffffff; /* White text for contrast */
 }
 
 .dashboard-nav ul {
@@ -25,38 +26,39 @@ body {
     margin: 10px 0 0;
     display: flex;
     justify-content: center;
-}
-
-.dashboard-nav ul li {
-    margin: 0 10px;
+    gap: 20px;
 }
 
 .dashboard-nav ul li a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
     font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    padding: 8px 15px;
+    border-radius: 25px; /* Rounded button style */
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #52ab98; /* Soft greenish-blue */
 }
 
 .dashboard-nav ul li a:hover {
-    background-color: #795548; /* Chocolate hover */
+    background-color: #1c3d4f; /* Darker blue-gray on hover */
+    transform: scale(1.1);
 }
 
 /* Main Section */
 .dashboard-main {
-    padding: 20px;
+    padding: 30px;
     text-align: center;
 }
 
 .overview-section h2 {
-    font-size: 22px;
-    margin-bottom: 10px;
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #2b6777; /* Blue-gray header */
 }
 
 .overview-section p {
     font-size: 16px;
+    color: #555; /* Subtle gray text */
     margin-bottom: 20px;
 }
 
@@ -70,35 +72,45 @@ body {
 }
 
 .feature {
-    background-color: #4e342e;
-    border-radius: 10px;
-    padding: 20px;
+    background-color: #ffffff; /* White card */
+    border-radius: 15px;
+    padding: 25px;
     text-align: center;
     width: 300px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px); /* Lift card on hover */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow */
 }
 
 .feature h3 {
-    color: #ffe0b2;
+    color: #2b6777; /* Cool blue-gray */
     margin-bottom: 10px;
+    font-size: 20px;
 }
 
 .feature p {
     font-size: 14px;
+    color: #555; /* Subtle gray text */
     margin-bottom: 15px;
+    line-height: 1.6;
 }
 
 .feature .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #795548;
+    background-color: #52ab98; /* Soft greenish-blue */
     color: #fff;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 25px;
+    font-size: 14px;
     transition: background-color 0.3s, transform 0.2s;
 }
 
 .feature .btn:hover {
-    background-color: #3e2723; /* Darker chocolate */
+    background-color: #1c3d4f; /* Darker blue-gray */
     transform: scale(1.05);
 }

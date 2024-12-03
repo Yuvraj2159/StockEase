@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="welcome-text">Welcome to STOCKEASE</div>
-    <form method="POST" action="welcome.php">
+    <form method="POST" action="Dashboard.php">
     
         <label for="username">Username:</label>
         <input type="text" name="username" id="Name" required> 

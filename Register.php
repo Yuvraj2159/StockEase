@@ -9,7 +9,7 @@
 <body>
     <div class="register-container">
         <h1>Register to STOCKEASE</h1>
-        <form method="POST" action="Dashboard.php">
+        <form method="POST" action="Register.php">
             <label for="name">Full Name:</label>
             <input type="text" id="name" name="name" placeholder="Enter your full name" required>
 

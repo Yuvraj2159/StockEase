@@ -12,8 +12,8 @@
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Add Stock</a></li>
-                <li><a href="#">View Stock</a></li>
+                <li><a href="Add stock.php">Add Stock</a></li>
+                <li><a href="View stock.php">View Stock</a></li>
                 <li><a href="#">Reports</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
@@ -28,14 +28,17 @@
 
         <section class="features-section">
             <div class="feature">
+            
                 <h3>Add Stock</h3>
+                
                 <p>Insert new stock items into your inventory with ease.</p>
-                <a href="#" class="btn">Add Stock</a>
+                <li><a href="Add stock.php" class="btn">Add Stock</a></li>
             </div>
             <div class="feature">
                 <h3>View Stock</h3>
+                
                 <p>Check your inventory details and manage items.</p>
-                <a href="#" class="btn">View Stock</a>
+                <li><a href="View stock.php" class="btn">View Stock</a></li>
             </div>
             <div class="feature">
                 <h3>Generate Reports</h3>

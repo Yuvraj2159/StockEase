@@ -3,12 +3,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #3e2723; /* Dark chocolate background */
+    background-color: #e33517; /* Dark chocolate background */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fce4ec; /* Soft cream text color */
+    color: #ed145c; /* Soft cream text color */
     text-align: center;
     flex-direction: column; /* Align items vertically */
     overflow: hidden;
@@ -17,7 +17,7 @@ body {
 /* Welcome Text Animation */
 .welcome-text {
     font-size: 28px;
-    color: #ffe0b2; /* Creamy welcome text */
+    color: #feffb2; /* Creamy welcome text */
     margin-bottom: 20px;
     text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
     animation: fadeIn 1.5s ease-out forwards, slideDown 1.5s ease-out forwards;
@@ -26,7 +26,7 @@ body {
 
 /* Form Container with Animation */
 form {
-    background: #5d4037; /* Milk chocolate background */
+    background: #f5e6e1; /* Milk chocolate background */
     padding: 20px 30px;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -87,18 +87,18 @@ input[type="text"]:focus, input[type="password"]:focus {
 /* Button */
 button {
     width: 100%;
-    background: #795548; /* Chocolate brown button */
+    background: #cfd212; /* Chocolate brown button */
     color: #fff; /* White text */
     border: none;
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background: #4e342e; /* Darker chocolate hover effect */
+    background: #c1f70f; /* Darker chocolate hover effect */
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
