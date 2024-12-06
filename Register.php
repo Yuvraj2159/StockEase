@@ -1,3 +1,43 @@
+
+<?php
+// Include database configuration
+include('./connection/config.php');
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $full_name = $_POST['name'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Validate input (basic validation)
+    if (empty($full_name) || empty($email) || empty($username) || empty($password)) {
+        echo "All fields are required!";
+        exit;
+    }
+
+    // Hash the password for security
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+    // Insert into the database
+    $sql = "INSERT INTO users (full_name, email, username, password) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssss", $full_name, $email, $username, $hashed_password);
+
+    if ($stmt->execute()) {
+        echo "Registration successful!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    // Close the statement and connection
+    $stmt->close();
+    $conn->close();
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

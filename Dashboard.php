@@ -32,7 +32,7 @@
                 <h3>Add Stock</h3>
                 
                 <p>Insert new stock items into your inventory with ease.</p>
-                <li><a href="Add stock.php" class="btn">Add Stock</a></li>
+                <li><a href="Add_stock.php" class="btn">Add Stock</a></li>
             </div>
             <div class="feature">
                 <h3>View Stock</h3>

@@ -1,3 +1,39 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login if not logged in
+    exit;
+}
+
+
+require './connection/config.php';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $item_name = $_POST["itemName"];
+    $quantity = $_POST["quantity"];
+    $price = $_POST["price"];
+
+    // Insert data into the table
+    $sql = "INSERT INTO stock_items (item_name, quantity, price) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sid", $item_name, $quantity, $price);
+
+    if ($stmt->execute()) {
+        echo "<h1> Item added </h1>";
+        echo "Stock item added successfully!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +54,7 @@
     </header>
 
     <main class="dashboard-main">
-        <form class="stock-form" action="submit-stock.php" method="POST">
+        <form class="stock-form" action="Add_stock.php" method="POST">
             <h2>Add New Stock</h2>
             <label for="itemName">Item Name:</label>
             <input type="text" id="itemName" name="itemName" placeholder="Enter item name" required>
