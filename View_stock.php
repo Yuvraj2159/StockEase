@@ -12,7 +12,7 @@
         <h1>View Stock</h1>
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="dashboard.html">Back to Dashboard</a></li>
+                <li><a href="Dashboard.php">Back to Dashboard</a></li>
             </ul>
         </nav>
     </header>

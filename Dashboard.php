@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Check if the user is logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login if not logged in
+    exit;
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +25,8 @@
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="Add stock.php">Add Stock</a></li>
-                <li><a href="View stock.php">View Stock</a></li>
+                <li><a href="Add_stock.php">Add Stock</a></li>
+                <li><a href="View_stock.php">View Stock</a></li>
                 <li><a href="#">Reports</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
@@ -38,7 +51,7 @@
                 <h3>View Stock</h3>
                 
                 <p>Check your inventory details and manage items.</p>
-                <li><a href="View stock.php" class="btn">View Stock</a></li>
+                <li><a href="View_stock.php" class="btn">View Stock</a></li>
             </div>
             <div class="feature">
                 <h3>Generate Reports</h3>

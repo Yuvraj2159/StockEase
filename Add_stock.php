@@ -1,9 +1,10 @@
-<?php
+<!-- <?php
 session_start();
 
 // Check if the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php"); // Redirect to login if not logged in
+if (isset($_SESSION['user_id'])) {
+    header("Location: dashboard.php?login_is_not_set");
+    // header("Location: login.php"); // Redirect to login if not logged in
     exit;
 }
 
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 $conn->close();
-?>
+?> -->
 
 
 <!DOCTYPE html>
@@ -48,7 +49,7 @@ $conn->close();
         <h1>Add Stock</h1>
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="dashboard.html">Back to Dashboard</a></li>
+                <li><a href="Dashboard.php">Back to Dashboard</a></li>
             </ul>
         </nav>
     </header>

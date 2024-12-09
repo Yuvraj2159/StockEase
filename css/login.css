@@ -3,12 +3,12 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #e33517; /* Dark chocolate background */
+    background-color: #8e8988; /* Dark chocolate background */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #ed145c; /* Soft cream text color */
+    color: #f13775; /* Soft cream text color */
     text-align: center;
     flex-direction: column; /* Align items vertically */
     overflow: hidden;
@@ -98,7 +98,7 @@ button {
 }
 
 button:hover {
-    background: #c1f70f; /* Darker chocolate hover effect */
+    background: #0c0c0b; /* Darker chocolate hover effect */
     transform: scale(1.05); /* Slight zoom on hover */
 }
 
