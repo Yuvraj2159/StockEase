@@ -1,0 +1,148 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #e33517; /* Dark chocolate background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ed145c; /* Soft cream text color */
+    text-align: center;
+    flex-direction: column; /* Align items vertically */
+    overflow: hidden;
+}
+
+/* Welcome Text Animation */
+.welcome-text {
+    font-size: 28px;
+    color: #feffb2; /* Creamy welcome text */
+    margin-bottom: 20px;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1.5s ease-out forwards, slideDown 1.5s ease-out forwards;
+    opacity: 0; /* Hidden initially */
+}
+
+/* Form Container with Animation */
+form {
+    background: #f5e6e1; /* Milk chocolate background */
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 60px; /* Space for the Login heading */
+    animation: slideUp 1.5s ease-out forwards, fadeIn 2s ease-out forwards;
+    transform: translateY(50px); /* Start slightly below */
+    opacity: 0; /* Hidden initially */
+}
+
+
+/* Heading */
+h2 {
+    position: absolute;
+    top: -30px; /* Position above the form container */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #5d4037; /* Match the container background */
+    color: #fff3e0; /* Light cream heading */
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 0; /* Remove default margin */
+    text-align: center;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ffe0b2; /* Creamy label text */
+}
+
+/* Input Fields */
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #8d6e63; /* Light chocolate border */
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    outline: none;
+    background: #4e342e; /* Darker chocolate input background */
+    color: #fff; /* White text */
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    border-color: #d7ccc8; /* Light beige focus border */
+    box-shadow: 0px 0px 5px rgba(215, 204, 200, 0.5);
+}
+
+/* Button */
+button {
+    width: 100%;
+    background: #cfd212; /* Chocolate brown button */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: #c1f70f; /* Darker chocolate hover effect */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    form {
+        padding: 15px 20px;
+        padding-top: 50px; /* Adjust space for smaller screens */
+    }
+
+    h2 {
+        font-size: 18px;
+        top: -25px; /* Adjust for smaller screens */
+    }
+
+    .welcome-text {
+        font-size: 22px; /* Smaller welcome text */
+    }
+}

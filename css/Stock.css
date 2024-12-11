@@ -1,0 +1,78 @@
+/* Stock Form Styles */
+.stock-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff; /* White background for contrast */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stock-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2b6777; /* Cool blue-gray */
+}
+
+.stock-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+    text-align: left;
+}
+
+.stock-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.stock-form button {
+    background-color: #52ab98; /* Soft greenish-blue */
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stock-form button:hover {
+    background-color: #1c3d4f; /* Darker blue-gray */
+    transform: scale(1.05);
+}
+
+/* Stock Table Styles */
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff; /* White table background */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.stock-table th, .stock-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.stock-table th {
+    background-color: #2b6777; /* Cool blue-gray */
+    color: #fff;
+}
+
+.stock-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.stock-table tr:hover {
+    background-color: #e8f4f8; /* Light highlight on hover */
+}
