@@ -62,7 +62,7 @@ label {
     display: block;
     font-size: 14px;
     margin-bottom: 8px;
-    color: #ffe0b2; /* Creamy label text */
+    color: black; /* Creamy label text */
 }
 
 /* Input Fields */
@@ -75,8 +75,8 @@ input[type="text"], input[type="password"] {
     box-sizing: border-box;
     margin-bottom: 20px;
     outline: none;
-    background: #4e342e; /* Darker chocolate input background */
-    color: #fff; /* White text */
+    background: white; /* Darker chocolate input background */
+    color: black; /* White text */
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
