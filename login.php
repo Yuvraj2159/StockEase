@@ -27,11 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = $result->fetch_assoc();
         // Verify the password
         if (password_verify($password, $user['password'])) {
-            session_start();
             // Store user information in the session
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['full_name'] = $user['full_name'];
+            
 
             // Redirect to the dashboard
             header("Location: Dashboard.php");
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="welcome-text">Welcome to STOCKEASE</div>
-    <form method="POST" action="Dashboard.php">
+    <form method="POST" action="login.php">
     
         <label for="username">Username:</label>
         <input type="text" name="username" id="Name" required> 

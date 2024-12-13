@@ -35,7 +35,7 @@ form {
     position: relative;
     box-sizing: border-box;
     padding-top: 60px; /* Space for the Login heading */
-    animation: slideUp 1.5s ease-out forwards, fadeIn 2s ease-out forwards;
+    animation: slideUp 1.5s ease-out forwards, fadeIn 1s ease-out forwards;
     transform: translateY(50px); /* Start slightly below */
     opacity: 0; /* Hidden initially */
 }

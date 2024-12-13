@@ -37,6 +37,8 @@ $result = $conn->query($sql);
                     <th>Quantity </th>
                     <th>Price</th>
                     <th>Total value</th>
+
+                    
                 </tr>
             </thead>
             <tbody>

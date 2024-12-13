@@ -2,14 +2,12 @@
 session_start();
 
 // Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php"); // Redirect to login if not logged in
     exit;
 }
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,6 +30,7 @@ if (isset($_SESSION['user_id'])) {
             </ul>
         </nav>
     </header>
+    
 
     <main class="dashboard-main">
         <section class="overview-section">
