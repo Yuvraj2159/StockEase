@@ -23,8 +23,10 @@ if (!isset($_SESSION['user_id'])) {
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="#">Home</a></li>
+                <li><a href="#">Users</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
                 <li><a href="View_stock.php">View Stock</a></li>
+                <li><a href="#">Customers</a></li>
                 <li><a href="#">Reports</a></li>
                 <li><a href="#">Logout</a></li>
             </ul>
