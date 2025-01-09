@@ -1,12 +1,11 @@
 <?php
 
 require_once('./connection/config.php');
-$sql = "SELECT item_name, quantity, price FROM stock_items";
+$sql = "SELECT id, item_name, quantity, price FROM stock_items"; // Include 'id' to identify each item
 
 // Execute the query
 $result = $conn->query($sql);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,11 +33,10 @@ $result = $conn->query($sql);
             <thead>
                 <tr>
                     <th>Item Name</th>
-                    <th>Quantity </th>
+                    <th>Quantity</th>
                     <th>Price</th>
-                    <th>Total value</th>
-
-                    
+                    <th>Total Value</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,15 +47,18 @@ $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         $total_amount = $row['quantity'] * $row['price'];
                         echo "<tr>
-                                    <td>" . htmlspecialchars($row['item_name']) . "</td>
-                                    <td>" . htmlspecialchars($row['quantity']) . "</td>
-                                    <td>" . htmlspecialchars($row['price']) . "</td>
-                                    <td>"   . htmlspecialchars(number_format($total_amount, 2)) ."</td>
-                                  </tr>";
+                                <td>" . htmlspecialchars($row['item_name']) . "</td>
+                                <td>" . htmlspecialchars($row['quantity']) . "</td>
+                                <td>" . htmlspecialchars($row['price']) . "</td>
+                                <td>" . htmlspecialchars(number_format($total_amount, 2)) . "</td>
+                                <td>
+                                    <a href='edit_stock.php?id=" . $row['id'] . "' class='edit-button'>Edit</a>
+                                </td>
+                              </tr>";
                     }
                 } else {
                     // Display a message if no data exists
-                    echo "<tr><td colspan='4'>No stock items found.</td></tr>";
+                    echo "<tr><td colspan='5'>No stock items found.</td></tr>";
                 }
 
                 // Close the database connection
@@ -65,30 +66,6 @@ $result = $conn->query($sql);
                 ?>
             </tbody>
         </table>
-        <!-- <table class="stock-table">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Price per Item</th>
-                    <th>Total Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Example Item 1</td>
-                    <td>50</td>
-                    <td>$20</td>
-                    <td>$1000</td>
-                </tr>
-                <tr>
-                    <td>Example Item 2</td>
-                    <td>100</td>
-                    <td>$15</td>
-                    <td>$1500</td>
-                </tr>
-            </tbody>
-        </table> -->
     </main>
 </body>
 
