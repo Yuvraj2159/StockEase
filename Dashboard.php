@@ -23,10 +23,12 @@ if (!isset($_SESSION['user_id'])) {
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="#">Home</a></li>
+                <li><a href="#">Users</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
                 <li><a href="View_stock.php">View Stock</a></li>
+                <li><a href="#">Customers</a></li>
                 <li><a href="#">Reports</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="logout.php" class="logout-button">Logout</a>
             </ul>
         </nav>
     </header>
@@ -44,13 +46,13 @@ if (!isset($_SESSION['user_id'])) {
                 <h3>Add Stock</h3>
                 
                 <p>Insert new stock items into your inventory with ease.</p>
-                <li><a href="Add_stock.php" class="btn">Add Stock</a></li>
+                <a href="Add_stock.php" class="btn">Add Stock</a></li>
             </div>
             <div class="feature">
                 <h3>View Stock</h3>
                 
                 <p>Check your inventory details and manage items.</p>
-                <li><a href="View_stock.php" class="btn">View Stock</a></li>
+                <a href="View_stock.php" class="btn">View Stock</a></li>
             </div>
             <div class="feature">
                 <h3>Generate Reports</h3>
