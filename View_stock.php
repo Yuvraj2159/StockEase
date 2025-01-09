@@ -16,6 +16,13 @@ $result = $conn->query($sql);
     <title>View Stock</title>
     <link rel="stylesheet" href="./css/Dashboard.css"> <!-- Reuse Dashboard CSS -->
     <link rel="stylesheet" href="./css/Stock.css"> <!-- Custom CSS for tables -->
+    <script>
+        function confirmDelete(itemId) {
+            if (confirm("Are you sure you want to delete this item?")) {
+                window.location.href = `delete_stock.php?id=${itemId}`;
+            }
+        }
+    </script>
 </head>
 
 <body>
@@ -53,6 +60,7 @@ $result = $conn->query($sql);
                                 <td>" . htmlspecialchars(number_format($total_amount, 2)) . "</td>
                                 <td>
                                     <a href='edit_stock.php?id=" . $row['id'] . "' class='edit-button'>Edit</a>
+                                    <button onclick='confirmDelete(" . $row['id'] . ")' class='delete-button'>Delete</button>
                                 </td>
                               </tr>";
                     }
