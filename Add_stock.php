@@ -2,7 +2,7 @@
 session_start();
 
 // Check if the user is logged in
-if (isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: dashboard.php?login_is_not_set");
     // header("Location: login.php"); // Redirect to login if not logged in
     exit;
@@ -41,7 +41,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Stock</title>
-    <link rel="stylesheet" href="./css/Dashboard.css"> <!-- Reuse Dashboard CSS -->
+    <link rel="stylesheet" href="./css/Dashboard.css"> Reuse Dashboard CSS --> -->
     <link rel="stylesheet" href="./css/Stock.css"> <!-- Custom CSS for forms -->
 </head>
 <body>

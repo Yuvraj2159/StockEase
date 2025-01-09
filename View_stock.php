@@ -15,7 +15,7 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Stock</title>
-    <link rel="stylesheet" href="./css/Dashboard.css"> <!-- Reuse Dashboard CSS -->
+    <link rel="stylesheet" href="./css/Dashboard.css"> Reuse Dashboard CSS -->
     <link rel="stylesheet" href="./css/Stock.css"> <!-- Custom CSS for tables -->
 </head>
 
