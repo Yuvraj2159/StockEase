@@ -28,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
                 <li><a href="View_stock.php">View Stock</a></li>
                 <li><a href="#">Customers</a></li>
                 <li><a href="#">Reports</a></li>
-                <li><a href="#">Logout</a></li>
+                <li><a href="logout.php" class="logout-button">Logout</a>
             </ul>
         </nav>
     </header>
