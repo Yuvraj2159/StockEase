@@ -1,0 +1,78 @@
+/* General Reset */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9; /* Light gray background */
+    color: #333; /* Dark text color */
+    text-align: center;
+}
+
+/* Header Styling */
+h2 {
+    margin-top: 20px;
+    font-size: 24px;
+    color: #2c3e50; /* Dark blue */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 16px;
+    color: #555; /* Medium gray text */
+    margin: 10px 0 20px;
+}
+
+/* Button Styling */
+.report-btn {
+    display: inline-block;
+    background-color: #3498db; /* Bright blue */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.report-btn:hover {
+    background-color: #2980b9; /* Darker blue for hover */
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Container Styling */
+.container {
+    max-width: 600px;
+    margin: 50px auto; /* Center the content */
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .report-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

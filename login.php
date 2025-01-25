@@ -75,6 +75,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
         </p>
     </form>
+    <div class="image-section">
+            <!-- Adding the Image -->
+            <img src="./image/login image.jpg" alt="Stock Management" class="stock-image">
+        </div>
     
 </body>
 </html>

@@ -57,7 +57,7 @@ if (!isset($_SESSION['user_id'])) {
             <div class="feature">
                 <h3>Generate Reports</h3>
                 <p>Create detailed reports to analyze stock performance.</p>
-                <a href="#" class="btn">Generate Report</a>
+                <a href="Generate_report.php" class="btn">Generate Report</a>
             </div>
         </section>
     </main>
