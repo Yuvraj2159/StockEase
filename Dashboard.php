@@ -25,7 +25,7 @@ if (!isset($_SESSION['user_id'])) {
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Users</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
-                <li><a href="View_stock.php">View Stock</a></li>
+                <li><a href="View_stock.php">Inventory</a></li>
                 <li><a href="#">Customers</a></li>
                 <li><a href="#">Reports</a></li>
                 <li><a href="logout.php" class="logout-button">Logout</a>
@@ -49,7 +49,7 @@ if (!isset($_SESSION['user_id'])) {
                 <a href="Add_stock.php" class="btn">Add Stock</a></li>
             </div>
             <div class="feature">
-                <h3>View Stock</h3>
+                <h3>Inventory</h3>
                 
                 <p>Check your inventory details and manage items.</p>
                 <a href="View_stock.php" class="btn">View Stock</a></li>

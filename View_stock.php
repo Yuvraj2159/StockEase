@@ -1,9 +1,9 @@
 <?php
-
+// connection/config.php
 require_once('./connection/config.php');
-$sql = "SELECT id, item_name, quantity, price FROM stock_items"; // Include 'id' to identify each item
 
-// Execute the query
+// Fetch stock items
+$sql = "SELECT id, item_name, quantity, price FROM stock_items";
 $result = $conn->query($sql);
 ?>
 
@@ -13,68 +13,233 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Stock</title>
-    <link rel="stylesheet" href="./css/Dashboard.css"> Reuse Dashboard CSS -->
-    <link rel="stylesheet" href="./css/Stock.css"> <!-- Custom CSS for tables -->
+    <title>Stock Management with Cart</title>
+    <link rel="stylesheet" href="./css/Dashboard.css">
+    <link rel="stylesheet" href="./css/Stock.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            font-family: Arial, sans-serif;
+        }
+
+        .Stock {
+            width: 60%;
+            padding: 20px;
+        }
+
+        .Stock h2 {
+            margin-bottom: 20px;
+        }
+
+        .Stock table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .Stock th, .Stock td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .Stock th {
+            background-color: #f4f4f4;
+        }
+
+        .cart {
+            width: 35%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 2px solid #ddd;
+        }
+
+        .cart h2 {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cart-item div {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .cart-item button:hover {
+            background-color: #218838;
+        }
+
+        .cart-item .remove {
+            background-color: #dc3545;
+        }
+
+        .cart-item .remove:hover {
+            background-color: #c82333;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .checkout {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .checkout:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Stock Section -->
+    <div class="Stock">
+    <h2 style="text-align: center;">Stock</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="Stock-items">
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr data-id='" . $row['id'] . "' data-name='" . htmlspecialchars($row['item_name']) . "' data-price='" . $row['price'] . "'>
+                                <td>" . htmlspecialchars($row['item_name']) . "</td>
+                                <td>" . htmlspecialchars($row['quantity']) . "</td>
+                                <td>₹" . htmlspecialchars($row['price']) . "</td>
+                                <td>
+                                    <a href='edit_stock.php?id=" . $row['id'] . "' class='edit-button'>Edit</a>
+                                    <button class='delete-button' onclick='confirmDelete(" . $row['id'] . ")'>Delete</button>
+                                    <button class='add-to-cart'>Add to Cart</button>
+                                </td>
+                              </tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>No stock items available.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart">
+    <h2 style="text-align: center;background-color: black; color: white;">Cart</h2>
+        <div id="cart-items">
+            <p>Your cart is empty</p>
+        </div>
+        <div class="cart-summary">
+            <p id="item-total">Item Total: ₹0.00</p>
+            <p id="grand-total"><strong>Grand Total: ₹0.00</strong></p>
+        </div>
+        <button class="checkout" id="checkout-button">Checkout</button>
+    </div>
+
     <script>
+        const cart = {};
+
+        // Add item to cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', event => {
+                const row = event.target.closest('tr');
+                const itemId = row.getAttribute('data-id');
+                const itemName = row.getAttribute('data-name');
+                const itemPrice = parseFloat(row.getAttribute('data-price'));
+
+                if (!cart[itemId]) {
+                    cart[itemId] = { name: itemName, price: itemPrice, quantity: 1 };
+                } else {
+                    cart[itemId].quantity++;
+                }
+
+                updateCart();
+            });
+        });
+
+        // Update cart
+        function updateCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            for (const [id, item] of Object.entries(cart)) {
+                total += item.price * item.quantity;
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item" data-id="${id}">
+                        <span>${item.name}</span>
+                        <div>
+                            <button onclick="changeQuantity('${id}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity('${id}', 1)">+</button>
+                            <button class="remove" onclick="removeFromCart('${id}')">Remove</button>
+                        </div>
+                        <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            }
+
+            if (Object.keys(cart).length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty</p>';
+            }
+
+            document.getElementById('item-total').innerText = `Item Total: ₹${total.toFixed(2)}`;
+            document.getElementById('grand-total').innerText = `Grand Total: ₹${(total).toFixed(2)}`;
+        }
+
+        // Change quantity
+        function changeQuantity(itemId, delta) {
+            if (cart[itemId]) {
+                cart[itemId].quantity += delta;
+                if (cart[itemId].quantity <= 0) {
+                    delete cart[itemId];
+                }
+                updateCart();
+            }
+        }
+
+        // Remove item from cart
+        function removeFromCart(itemId) {
+            delete cart[itemId];
+            updateCart();
+        }
+
+        // Confirm delete action
         function confirmDelete(itemId) {
             if (confirm("Are you sure you want to delete this item?")) {
                 window.location.href = `delete_stock.php?id=${itemId}`;
             }
         }
     </script>
-</head>
-
-<body>
-    <header class="dashboard-header">
-        <h1>View Stock</h1>
-        <nav class="dashboard-nav">
-            <ul>
-                <li><a href="Dashboard.php">Back to Dashboard</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="dashboard-main">
-        <table class="stock-table">
-            <thead>
-                <tr>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Value</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                // Check if there are rows to display
-                if ($result->num_rows > 0) {
-                    // Fetch rows and display them
-                    while ($row = $result->fetch_assoc()) {
-                        $total_amount = $row['quantity'] * $row['price'];
-                        echo "<tr>
-                                <td>" . htmlspecialchars($row['item_name']) . "</td>
-                                <td>" . htmlspecialchars($row['quantity']) . "</td>
-                                <td>" . htmlspecialchars($row['price']) . "</td>
-                                <td>" . htmlspecialchars(number_format($total_amount, 2)) . "</td>
-                                <td>
-                                    <a href='edit_stock.php?id=" . $row['id'] . "' class='edit-button'>Edit</a>
-                                    <button onclick='confirmDelete(" . $row['id'] . ")' class='delete-button'>Delete</button>
-                                </td>
-                              </tr>";
-                    }
-                } else {
-                    // Display a message if no data exists
-                    echo "<tr><td colspan='5'>No stock items found.</td></tr>";
-                }
-
-                // Close the database connection
-                $conn->close();
-                ?>
-            </tbody>
-        </table>
-    </main>
 </body>
 
 </html>
