@@ -64,7 +64,9 @@ $result = $conn->query($sql);
             <p id="item-total">Item Total: ₹0.00</p>
             <p id="grand-total"><strong>Grand Total: ₹0.00</strong></p>
         </div>
-        <button class="checkout" id="checkout-button">Checkout</button>
+        <button class="checkout" id="checkout-button">
+    <a href="checkout.php" style="color: white; text-decoration: none;">Checkout</a>
+</button>
     </div>
 
     <script>
