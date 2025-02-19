@@ -19,14 +19,6 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-<header class="dashboard-header">
-        <h1>Inventory</h1>
-        <nav class="dashboard-nav">
-            <ul>
-                <li><a href="Dashboard.php">Back to Dashboard</a></li>
-            </ul>
-        </nav>
-    </header>
     <!-- Stock Section -->
     <div class="Stock">
     <h2 style="text-align: center;">Stock</h2>
