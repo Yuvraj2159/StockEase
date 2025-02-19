@@ -1,0 +1,118 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #eef5f9;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Header Styles */
+.dashboard-header {
+    text-align: center;
+    background: linear-gradient(135deg, #255f85, #153b4c);
+    color: white;
+    padding: 20px 0;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 10px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Main Container */
+.dashboard-main {
+    max-width: 450px;
+    margin: 30px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #c5d8e4;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #f8fbff;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    border-color: #407088;
+    box-shadow: 0 0 8px rgba(64, 112, 136, 0.5);
+}
+
+/* Buttons */
+button {
+    background: linear-gradient(135deg, #407088, #255f85);
+    color: white;
+    padding: 14px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #255f85, #153b4c);
+    transform: scale(1.05);
+}
+
+/* Cancel Button */
+.cancel-button {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #255f85;
+    background-color: #f3f7fa;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #d9ecf5;
+    color: #153b4c;
+}
+
+/* Error Message */
+.error {
+    color: #d9534f;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .dashboard-main {
+        max-width: 90%;
+    }
+}
