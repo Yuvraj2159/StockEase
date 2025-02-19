@@ -23,36 +23,32 @@ if (!isset($_SESSION['user_id'])) {
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Users</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
                 <li><a href="View_stock.php">Inventory</a></li>
-                <li><a href="#">Customers</a></li>
+                <li><a href="add_customer.php">Customers</a></li>
                 <li><a href="#">Reports</a></li>
-                <li><a href="logout.php" class="logout-button">Logout</a>
+                <li><a href="logout.php" class="logout-button" onclick="return confirmLogout()">Logout</a></li>
             </ul>
         </nav>
     </header>
-    
 
     <main class="dashboard-main">
         <section class="overview-section">
             <h2>Overview</h2>
             <p>Manage your inventory efficiently with STOCKEASE. Track, update, and analyze your stock in one place.</p>
+            </div>
         </section>
 
         <section class="features-section">
             <div class="feature">
-            
                 <h3>Add Stock</h3>
-                
                 <p>Insert new stock items into your inventory with ease.</p>
-                <a href="Add_stock.php" class="btn">Add Stock</a></li>
+                <a href="Add_stock.php" class="btn">Add Stock</a>
             </div>
             <div class="feature">
                 <h3>Inventory</h3>
-                
                 <p>Check your inventory details and manage items.</p>
-                <a href="View_stock.php" class="btn">View Stock</a></li>
+                <a href="View_stock.php" class="btn">View Stock</a>
             </div>
             <div class="feature">
                 <h3>Generate Reports</h3>
@@ -61,5 +57,12 @@ if (!isset($_SESSION['user_id'])) {
             </div>
         </section>
     </main>
+
+    <script>
+        // Confirm logout
+        function confirmLogout() {
+            return confirm("Are you sure you want to logout?");
+        }
+    </script>
 </body>
 </html>

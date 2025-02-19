@@ -1,15 +1,22 @@
-<!-- <?php
+<?php
 session_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     header("Location: dashboard.php?login_is_not_set");
-    // header("Location: login.php"); // Redirect to login if not logged in
     exit;
 }
 
-
 require './connection/config.php';
+
+// Initialize message
+if (!isset($_SESSION['message'])) {
+    $_SESSION['message'] = "";
+}
+if (!isset($_SESSION['messageClass'])) {
+    $_SESSION['messageClass'] = "";
+}
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $item_name = $_POST["itemName"];
@@ -22,18 +29,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("sid", $item_name, $quantity, $price);
 
     if ($stmt->execute()) {
-        echo "<h1> Item added </h1>";
-        echo "Stock item added successfully!";
+        $_SESSION['message'] = "✅ Item Added Successfully!";
+        $_SESSION['messageClass'] = "success";
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['message'] = "❌ Error: " . $stmt->error;
+        $_SESSION['messageClass'] = "error";
     }
-
     $stmt->close();
+
+    // Redirect to the same page to display the message
+    header("Location: Add_stock.php");
+    exit();
 }
 
 $conn->close();
-?> -->
-
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +53,27 @@ $conn->close();
     <title>Add Stock</title>
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/Stock.css"> <!-- Custom CSS for forms -->
+
+    <style>
+        .message-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+    </style>
 </head>
 <body>
     <header class="dashboard-header">
@@ -68,6 +99,18 @@ $conn->close();
 
             <button type="submit" class="btn">Add Stock</button>
         </form>
+
+        <!-- Display Persistent Message Below Form -->
+        <?php if (!empty($_SESSION['message'])): ?>
+            <div class="message-box <?php echo $_SESSION['messageClass']; ?>">
+                <?php echo $_SESSION['message']; ?>
+            </div>
+            <?php 
+            // Clear message after displaying it once
+            $_SESSION['message'] = ""; 
+            $_SESSION['messageClass'] = "";
+            ?>
+        <?php endif; ?>
     </main>
 </body>
 </html>
