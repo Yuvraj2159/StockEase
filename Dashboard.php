@@ -51,6 +51,11 @@ if (!isset($_SESSION['user_id'])) {
                 <a href="View_stock.php" class="btn">View Stock</a>
             </div>
             <div class="feature">
+                <h3>Customers</h3>
+                <p>Check your customers and add customer details.</p>
+                <a href="add_customer.php" class="btn">Customers</a>
+            </div>
+            <div class="feature">
                 <h3>Generate Reports</h3>
                 <p>Create detailed reports to analyze stock performance.</p>
                 <a href="Generate_report.php" class="btn">Generate Report</a>
