@@ -31,7 +31,7 @@ body {
 .Stock {
     max-width: 800px;
     margin: auto;
-    background: rgb(243, 225, 225);
+    background: white;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
@@ -91,23 +91,23 @@ tr:hover {
 }
 
 .edit-button {
-    background: #eae9e4;
+    background: #ffcc00;
     color: black;
     border: none;
 }
 
 .edit-button:hover {
-    background: #d7d6d1;
+    background: #e6b800;
 }
 
 .delete-button {
-    background: #423230;
+    background: #e74c3c;
     color: white;
     border: none;
 }
 
 .delete-button:hover {
-    background: #3a2c2a;
+    background: #c0392b;
 }
 
 .add-to-cart {
@@ -174,7 +174,7 @@ tr:hover {
 
 /* Remove button */
 .cart-item .remove {
-    color: rgb(67, 49, 49);
+    color: red;
     font-weight: bold;
 }
 
@@ -187,6 +187,7 @@ tr:hover {
 }
 
 /* Checkout Button */
+
 .checkout {
     width: 100%;
     padding: 12px;
@@ -206,6 +207,8 @@ tr:hover {
     transform: scale(1.05);
 }
 
+
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .Stock, .cart {
@@ -217,3 +220,4 @@ tr:hover {
         padding: 10px;
     }
 }
+

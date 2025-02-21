@@ -16,6 +16,8 @@ $result = $conn->query($sql);
     <title>Stock Management with Cart</title>
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/inventory.css">
+    
+
 </head>
 
 <body>
@@ -50,6 +52,8 @@ $result = $conn->query($sql);
                     echo "<tr><td colspan='4'>No stock items available.</td></tr>";
                 }
                 ?>
+                <a href="dashboard.php" class="back-to-dashboard">Back to Dashboard</a>
+
             </tbody>
         </table>
     </div>
@@ -141,6 +145,7 @@ $result = $conn->query($sql);
                 window.location.href = `delete_stock.php?id=${itemId}`;
             }
         }
+        
     </script>
 </body>
 
