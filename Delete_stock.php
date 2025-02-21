@@ -10,14 +10,14 @@ if (isset($_GET['id'])) {
 
     if ($stmt->execute()) {
         // Redirect to View Stock page after deletion
-        header("Location: view_stock.php?message=Item deleted successfully");
+        header("Location: Inventory.php?message=Item deleted successfully");
         exit();
     } else {
         echo "Error deleting item: " . $conn->error;
     }
     $stmt->close();
 } else {
-    header("Location: view_stock.php");
+    header("Location: Inventory.php");
     exit();
 }
 
