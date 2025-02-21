@@ -18,6 +18,7 @@ $sale_items = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <title>Bill</title>
