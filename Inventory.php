@@ -16,11 +16,23 @@ $result = $conn->query($sql);
     <title>Stock Management with Cart</title>
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/inventory.css">
+<<<<<<< HEAD:View_stock.php
     
 
+=======
+    <link rel="stylesheet" href="./css/Stock.css">
+>>>>>>> c04ad66be0cd2f96cffa54cf0d193b963b8c54d5:Inventory.php
 </head>
 
 <body>
+<header class="dashboard-header">
+        <h1>Inventory</h1>
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="Dashboard.php">Back to Dashboard</a></li>
+            </ul>
+        </nav>
+</header>
     <!-- Stock Section -->
     <div class="Stock">
     <h2 style="text-align: center;">Stock</h2>
@@ -68,7 +80,9 @@ $result = $conn->query($sql);
             <p id="item-total">Item Total: ₹0.00</p>
             <p id="grand-total"><strong>Grand Total: ₹0.00</strong></p>
         </div>
-        <button class="checkout" id="checkout-button">Checkout</button>
+        <button class="checkout" id="checkout-button">
+    <a href="checkout.php" style="color: white; text-decoration: none;">Checkout</a>
+</button>
     </div>
 
     <script>

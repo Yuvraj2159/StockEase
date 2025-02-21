@@ -48,8 +48,13 @@ $conn->close();
 </head>
 
 <body>
-    <header class="dashboard-header">
-        <h1>Edit Stock Item</h1>
+<header class="dashboard-header">
+        <h1>Edit Stock</h1>
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="Inventory.php">Back to Inventory</a></li>
+            </ul>
+        </nav>
     </header>
 
     <main class="dashboard-main">
