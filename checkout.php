@@ -50,8 +50,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     <meta charset="UTF-8">
     <title>Checkout</title>
     <link rel="stylesheet" href="./css/checkout.css">
+    <link rel="stylesheet" href="./css/Dashboard.css">
+    <link rel="stylesheet" href="./css/Stock.css">
 </head>
 <body>
+<header class="dashboard-header">
+        <h1>Checkout</h1>
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="Inventory.php">Back to Inventory</a></li>
+            </ul>
+        </nav>
+    </header>
     <h2>Order Summary</h2>
     <table>
         <tr>

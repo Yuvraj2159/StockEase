@@ -22,14 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $stmt->bind_param("sidi", $item_name, $quantity, $price, $id);
 
     if ($stmt->execute()) {
-        header("Location: view_stock.php");
+        header("Location: Inventory.php");
         exit();
     } else {
         $error = "Error updating stock item.";
     }
     $stmt->close();
 } else {
-    header("Location: view_stock.php");
+    header("Location: Inventory.php");
     exit();
 }
 
@@ -74,7 +74,7 @@ $conn->close();
             </div>
             <div>
                 <button type="submit">Save Changes</button>
-                <a href="view_stock.php" class="cancel-button">Cancel</a>
+                <a href="Inventory.php" class="cancel-button">Cancel</a>
             </div>
         </form>
         <?php if (isset($error)) : ?>
