@@ -61,7 +61,7 @@ $result = $conn->query($sql);
                     echo "<tr><td colspan='4'>No stock items available.</td></tr>";
                 }
                 ?>
-                <a href="dashboard.php" class="back-to-dashboard">Back to Dashboard</a>
+               
 
             </tbody>
         </table>
