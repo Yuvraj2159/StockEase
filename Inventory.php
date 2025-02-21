@@ -77,9 +77,31 @@ $result = $conn->query($sql);
             <p id="item-total">Item Total: ₹0.00</p>
             <p id="grand-total"><strong>Grand Total: ₹0.00</strong></p>
         </div>
-        <button class="checkout" id="checkout-button">
-    <a href="checkout.php" style="color: white; text-decoration: none;">Checkout</a>
-</button>
+        <button class="checkout" id="checkout-button">Checkout</button>
+
+<script>
+    document.getElementById('checkout-button').addEventListener('click', function () {
+        if (Object.keys(cart).length === 0) {
+            alert("Your cart is empty!");
+            return;
+        }
+
+        // Send cart data to checkout.php using a form
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'checkout.php';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'cartData';
+        input.value = JSON.stringify(cart);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    });
+</script>
+
     </div>
 
     <script>

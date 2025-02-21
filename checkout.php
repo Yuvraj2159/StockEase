@@ -1,64 +1,90 @@
 <?php
-session_start();
-include 'db_connection.php'; // Include your database connection file
+require_once('./connection/config.php');
 
-if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo "<h2>Your cart is empty</h2>";
-    exit();
-}
-
-// Function to deduct stock after a successful sale
-function updateInventory($conn, $cart) {
-    foreach ($cart as $item_id => $item) {
-        $quantity = $item['quantity'];
-        $sql = "UPDATE inventory SET quantity = quantity - $quantity WHERE id = $item_id";
-        $conn->query($sql);
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
+    $cart = json_decode($_POST['cartData'], true);
+    
+    if (!$cart) {
+        echo "Invalid cart data!";
+        exit;
     }
-}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['confirm_sale'])) {
-    // Save transaction details to sales table
-    $total_price = $_POST['total_price'];
-    $date = date('Y-m-d H:i:s');
-    $sql = "INSERT INTO sales (total_price, sale_date) VALUES ($total_price, '$date')";
-    if ($conn->query($sql) === TRUE) {
-        $sale_id = $conn->insert_id;
-        foreach ($_SESSION['cart'] as $item_id => $item) {
-            $sql = "INSERT INTO sale_items (sale_id, item_id, quantity, price) VALUES ($sale_id, $item_id, ".$item['quantity'].", ".$item['price'].")";
-            $conn->query($sql);
+    $error = false;
+    $conn->begin_transaction();
+
+    foreach ($cart as $id => $item) {
+        $sql = "SELECT quantity FROM stock_items WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->bind_result($stockQuantity);
+        $stmt->fetch();
+        $stmt->close();
+
+        if ($stockQuantity < $item['quantity']) {
+            $error = true;
+            break;
         }
-        updateInventory($conn, $_SESSION['cart']);
-        $_SESSION['cart'] = []; // Clear the cart after sale
-        header("Location: bill.php?sale_id=$sale_id"); // Redirect to bill generation page
-        exit();
+        
+        $newQuantity = $stockQuantity - $item['quantity'];
+        $updateSql = "UPDATE stock_items SET quantity = ? WHERE id = ?";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->bind_param("ii", $newQuantity, $id);
+        $updateStmt->execute();
+        $updateStmt->close();
+    }
+
+    if ($error) {
+        $conn->rollback();
+        echo "<p>Transaction failed: Not enough stock!</p>";
+        exit;
     } else {
-        echo "Error processing sale.";
+        $conn->commit();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Checkout</title>
+    <link rel="stylesheet" href="./css/checkout.css">
 </head>
 <body>
-    <h2>Checkout</h2>
-    <table border="1">
-        <tr><th>Item</th><th>Quantity</th><th>Price</th></tr>
+    <h2>Order Summary</h2>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
         <?php
-        $total_price = 0;
-        foreach ($_SESSION['cart'] as $item) {
-            echo "<tr><td>{$item['name']}</td><td>{$item['quantity']}</td><td>₹{$item['price']}</td></tr>";
-            $total_price += $item['quantity'] * $item['price'];
+        $grandTotal = 0;
+        foreach ($cart as $id => $item) {
+            $total = $item['price'] * $item['quantity'];
+            $grandTotal += $total;
+            echo "<tr>
+                    <td>{$item['name']}</td>
+                    <td>{$item['quantity']}</td>
+                    <td>₹{$item['price']}</td>
+                    <td>₹{$total}</td>
+                  </tr>";
         }
         ?>
+        <tr>
+            <td colspan="3"><strong>Grand Total</strong></td>
+            <td><strong>₹<?php echo number_format($grandTotal, 2); ?></strong></td>
+        </tr>
     </table>
-    <h3>Total: ₹<?php echo $total_price; ?></h3>
-    <form method="post">
-        <input type="hidden" name="total_price" value="<?php echo $total_price; ?>">
-        <button type="submit" name="confirm_sale">Confirm Sale</button>
-    </form>
+
+    <button onclick="printBill()">Print Bill</button>
+
+    <script>
+        function printBill() {
+            window.print();
+        }
+    </script>
 </body>
 </html>
