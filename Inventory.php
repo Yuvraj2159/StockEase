@@ -16,9 +16,18 @@ $result = $conn->query($sql);
     <title>Stock Management with Cart</title>
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/inventory.css">
+    <link rel="stylesheet" href="./css/Stock.css">
 </head>
 
 <body>
+<header class="dashboard-header">
+        <h1>Inventory</h1>
+        <nav class="dashboard-nav">
+            <ul>
+                <li><a href="Dashboard.php">Back to Dashboard</a></li>
+            </ul>
+        </nav>
+</header>
     <!-- Stock Section -->
     <div class="Stock">
     <h2 style="text-align: center;">Stock</h2>
