@@ -16,12 +16,9 @@ $result = $conn->query($sql);
     <title>Stock Management with Cart</title>
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/inventory.css">
-<<<<<<< HEAD:View_stock.php
     
 
-=======
     <link rel="stylesheet" href="./css/Stock.css">
->>>>>>> c04ad66be0cd2f96cffa54cf0d193b963b8c54d5:Inventory.php
 </head>
 
 <body>
