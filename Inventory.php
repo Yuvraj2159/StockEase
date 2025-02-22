@@ -3,7 +3,7 @@
 require_once('./connection/config.php');
 
 // Fetch stock items
-$sql = "SELECT id, item_name, quantity, price FROM stock_items";
+$sql = "SELECT id, item_name, category, quantity, price FROM stock_items";
 $result = $conn->query($sql);
 ?>
 
@@ -102,6 +102,7 @@ $result = $conn->query($sql);
                 <thead>
                     <tr>
                         <th>Item Name</th>
+                        <th>Category</th>
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Actions</th>
@@ -113,6 +114,7 @@ $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             echo "<tr data-id='" . $row['id'] . "' data-name='" . htmlspecialchars($row['item_name']) . "' data-price='" . $row['price'] . "'>
                                     <td>" . htmlspecialchars($row['item_name']) . "</td>
+                                    <td>" . htmlspecialchars($row['category']) . "</td>
                                     <td>" . htmlspecialchars($row['quantity']) . "</td>
                                     <td>₹" . number_format($row['price'], 2) . "</td>
                                     <td>
