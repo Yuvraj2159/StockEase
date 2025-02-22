@@ -70,30 +70,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cart']) && is_array($_
         echo "<p style='color:red;'>Transaction failed! Please try again.</p>";
     } else {
         $conn->commit();
-        echo "<p style='color:green;'>Transaction successful! Stock updated.</p>";
-        header("Location: Dashboard.php");
+        // Redirect to dashboard with a success message
+        header("Location: Dashboard.php?success=true");
         exit();
     }
 } else {
     echo "<p style='color:red;'>Invalid request!</p>";
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Bill</title>
-    <link rel="stylesheet" href="./css/Bill.css">
-    <script>
-        function printBill() {
-            window.print();
-        }
-    </script>
-</head>
-
-<body>
-    <button type="button" onclick="printBill()">Print Bill</button>
-</body>
-
-</html>

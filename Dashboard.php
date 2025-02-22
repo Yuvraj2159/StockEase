@@ -33,9 +33,35 @@ $full_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; //
         .user-info a:hover {
             color: yellow;
         }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            background: #e6ffe6;
+            border: 1px solid green;
+            margin: 10px auto;
+            width: 50%;
+            display: none; /* Hidden by default */
+        }
     </style>
 </head>
 <body>
+
+    <!-- Success Message -->
+    <?php if (isset($_GET['success']) && $_GET['success'] == 'true'): ?>
+        <div class="success-message" id="successMessage">
+            ✅ Transaction Completed Successfully!
+        </div>
+        <script>
+            // Show the success message and hide it after 5 seconds
+            document.getElementById("successMessage").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("successMessage").style.display = "none";
+            }, 5000);
+        </script>
+    <?php endif; ?>
+
     <header class="dashboard-header">
         <h1>Welcome to STOCKEASE Dashboard</h1>
         
@@ -88,6 +114,7 @@ $full_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; //
                 <h3>Reports</h3>
                 <p>Look into the sales report</p>
                 <a href="reports.php" class="btn">Reports</a>
+            </div>
         </section>
     </main>
 
