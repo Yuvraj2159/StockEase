@@ -42,6 +42,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
         $conn->commit();
     }
 }
+// Get customer ID from URL
+$customerId = isset($_GET['customer']) ? (int) $_GET['customer'] : 0;
+
+// Fetch customer details securely using a prepared statement
+$sql = "SELECT cus_name, email, phone FROM customers WHERE cus_id = ?";
+if ($stmt = $conn->prepare($sql)) {
+    $stmt->bind_param("i", $customerId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $customer = $result->fetch_assoc();
+}
+$stmt->close();
 ?>
 
 <!DOCTYPE html>
@@ -54,6 +66,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/Stock.css">
 </head>
+<style>
+    .box {
+        width: 100%px;
+        border: 2px solid black;
+        padding: 10px;
+        margin: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+</style>
 
 <body>
     <header class="dashboard-header">
@@ -65,6 +95,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
         </nav>
     </header>
     <h2>Order Summary</h2>
+    <div class="box">
+        <h3>Customer Details</h3>
+        <?php if ($customer): ?>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><?php echo htmlspecialchars($customer["cus_name"]); ?></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><?php echo htmlspecialchars($customer["email"]); ?></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><?php echo htmlspecialchars($customer["phone"]); ?></td>
+                </tr>
+            </table>
+        <?php else: ?>
+            <p>No customer found.</p>
+        <?php endif; ?>
+    </div>
     <table>
         <tr>
             <th>Item</th>
@@ -100,9 +151,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
         <form action="bill.php" method="post">
             <?php foreach ($cart as $index => $item): ?>
                 <input type="hidden" name="cart[<?= $index ?>][name]" value="<?= htmlspecialchars($item['name']) ?>">
-                <input type="hidden" name="cart[<?= $index ?>][quantity]"value="<?= htmlspecialchars($item['quantity']) ?>">
+                <input type="hidden" name="cart[<?= $index ?>][quantity]"
+                    value="<?= htmlspecialchars($item['quantity']) ?>">
                 <input type="hidden" name="cart[<?= $index ?>][price]" value="<?= htmlspecialchars($item['price']) ?>">
             <?php endforeach; ?>
+            <input type="hidden" name="cus_id" value="<?php echo $cust_id = $_GET['customer'] ?>">
             <button type="submit" name="update_stock" onclick="printBill()">Proceed to Final Bill</button>
         </form>
 

@@ -46,11 +46,11 @@ $full_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; //
 
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="Dashboard.php">Home</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
                 <li><a href="Inventory.php">Inventory</a></li>
                 <li><a href="add_customer.php">Customers</a></li>
-                <li><a href="#">Reports</a></li>
+                
                 <li><a href="logout.php" class="logout-button" onclick="return confirmLogout()">Logout</a></li>
             </ul>
         </nav>
@@ -79,9 +79,9 @@ $full_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; //
                 <a href="add_customer.php" class="btn">Customers</a>
             </div>
             <div class="feature">
-                <h3>Generate Reports</h3>
-                <p>Create detailed reports to analyze stock performance.</p>
-                <a href="Generate_report.php" class="btn">Generate Report</a>
+                <h3>Sales</h3>
+                <p>Sell Products to Customer</p>
+                <a href="Customer_Sales.php" class="btn">Search Customer</a>
             </div>
         </section>
     </main>
