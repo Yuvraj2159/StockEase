@@ -5,7 +5,7 @@ session_start();
 $username = $_SESSION['username'];
 $full_name = $_SESSION['full_name'];
 
-print_r($_POST);
+
 
 
 // if (isset($_POST['update_stock']) && isset($_POST['cart'])) {

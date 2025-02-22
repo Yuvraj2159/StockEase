@@ -1,6 +1,6 @@
 <?php
 require_once('./connection/config.php');
-print_r($_POST);
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     $cart = json_decode($_POST['cartData'], true);
 
