@@ -1,9 +1,9 @@
 <?php
 require_once('./connection/config.php');
-
+print_r($_POST);
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     $cart = json_decode($_POST['cartData'], true);
-    
+
     if (!$cart) {
         echo "Invalid cart data!";
         exit;
@@ -12,27 +12,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     $error = false;
     $conn->begin_transaction();
 
-    foreach ($cart as $id => $item) {
-        $sql = "SELECT quantity FROM stock_items WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->bind_result($stockQuantity);
-        $stmt->fetch();
-        $stmt->close();
+    //     foreach ($cart as $id => $item) {
+//         $sql = "SELECT id,quantity FROM stock_items WHERE id = ?";
+//         $stmt = $conn->prepare($sql);
+//         $stmt->bind_param("i", $id);
+//         $stmt->execute();
+//         $stmt->bind_result($stockQuantity);
+//         $stmt->fetch();
+//         $stmt->close();
 
-        if ($stockQuantity < $item['quantity']) {
-            $error = true;
-            break;
-        }
-        
-        $newQuantity = $stockQuantity - $item['quantity'];
-        $updateSql = "UPDATE stock_items SET quantity = ? WHERE id = ?";
-        $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("ii", $newQuantity, $id);
-        $updateStmt->execute();
-        $updateStmt->close();
-    }
+    //         if ($stockQuantity < $item['quantity']) {
+//             $error = true;
+//             break;
+//         }
+
+    //         $newQuantity = $stockQuantity - $item['quantity'];
+//         $updateSql = "UPDATE stock_items SET quantity = ? WHERE id = ?";
+//         $updateStmt = $conn->prepare($updateSql);
+//         $updateStmt->bind_param("ii", $newQuantity, $id);
+//         $updateStmt->execute();
+//         $updateStmt->close();
+//     }
 
     if ($error) {
         $conn->rollback();
@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
@@ -53,8 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
     <link rel="stylesheet" href="./css/Dashboard.css">
     <link rel="stylesheet" href="./css/Stock.css">
 </head>
+
 <body>
-<header class="dashboard-header">
+    <header class="dashboard-header">
         <h1>Checkout</h1>
         <nav class="dashboard-nav">
             <ul>
@@ -71,30 +73,44 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cartData'])) {
             <th>Total</th>
         </tr>
         <?php
-        $grandTotal = 0;
-        foreach ($cart as $id => $item) {
-            $total = $item['price'] * $item['quantity'];
-            $grandTotal += $total;
-            echo "<tr>
-                    <td>{$item['name']}</td>
-                    <td>{$item['quantity']}</td>
-                    <td>₹{$item['price']}</td>
-                    <td>₹{$total}</td>
-                  </tr>";
-        }
-        ?>
-        <tr>
-            <td colspan="3"><strong>Grand Total</strong></td>
-            <td><strong>₹<?php echo number_format($grandTotal, 2); ?></strong></td>
-        </tr>
-    </table>
+        $grandTotal = 0; ?>
+        <table>
+            <?php foreach ($cart as $id => $item): ?>
+                <?php
+                $total = $item['price'] * $item['quantity'];
+                $grandTotal += $total;
+                ?>
+                <tr>
+                    <td><?= $item['name'] ?></td>
+                    <td><?= $item['quantity'] ?></td>
+                    <td>₹<?= number_format($item['price'], 2) ?></td>
+                    <td>₹<?= number_format($total, 2) ?></td>
+                </tr>
 
-    <button onclick="printBill()">Print Bill</button>
+            <?php endforeach; ?>
 
-    <script>
-        function printBill() {
-            window.print();
-        }
-    </script>
+            <!-- Display the grand total -->
+            <tr>
+                <td colspan="3"><strong>Grand Total</strong></td>
+                <td><strong>₹<?= number_format($grandTotal, 2) ?></strong></td>
+            </tr>
+        </table>
+
+        <!-- Form to submit the cart data to bill.php -->
+        <form action="bill.php" method="post">
+            <?php foreach ($cart as $index => $item): ?>
+                <input type="hidden" name="cart[<?= $index ?>][name]" value="<?= htmlspecialchars($item['name']) ?>">
+                <input type="hidden" name="cart[<?= $index ?>][quantity]"value="<?= htmlspecialchars($item['quantity']) ?>">
+                <input type="hidden" name="cart[<?= $index ?>][price]" value="<?= htmlspecialchars($item['price']) ?>">
+            <?php endforeach; ?>
+            <button type="submit" name="update_stock" onclick="printBill()">Proceed to Final Bill</button>
+        </form>
+
+        <script>
+            function printBill() {
+                window.print();
+            }
+        </script>
 </body>
+
 </html>
