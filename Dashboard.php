@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$full_name = isset($_SESSION['full_name']) ? $_SESSION['full_name'] : 'User'; // Get user's name
 ?>
 
 <!DOCTYPE html>
@@ -16,10 +17,33 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - STOCKEASE</title>
     <link rel="stylesheet" href="./css/Dashboard.css"> <!-- Link to CSS -->
+    <style>
+        .user-info {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .user-info a {
+            text-decoration: none;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .user-info a:hover {
+            color: yellow;
+        }
+    </style>
 </head>
 <body>
     <header class="dashboard-header">
         <h1>Welcome to STOCKEASE Dashboard</h1>
+        
+        <!-- Clickable Profile Link -->
+        <div class="user-info">
+            👤 <a href="profile.php"><?= htmlspecialchars($full_name); ?></a>
+        </div>
+
         <nav class="dashboard-nav">
             <ul>
                 <li><a href="Dashboard.php">Home</a></li>
@@ -35,7 +59,6 @@ if (!isset($_SESSION['user_id'])) {
         <section class="overview-section">
             <h2>Overview</h2>
             <p>Manage your inventory efficiently with STOCKEASE. Track, update, and analyze your stock in one place.</p>
-            </div>
         </section>
 
         <section class="features-section">
