@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
             <input type="text" name="search" class="search-box" placeholder="Enter customer name..."
                 value="<?= htmlspecialchars($searchQuery) ?>" required>
             <button type="submit" class="button">Search</button>
-            <button type="button" class="button" onclick="window.location.href='addcustomer.php'">+ Add New
+            <button type="button" class="button" onclick="window.location.href='add_customer.php'">+ Add New
                 Customer</button>
         </form>
 
