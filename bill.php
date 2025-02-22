@@ -1,100 +1,99 @@
 <?php
-
 include 'connection/config.php';
 session_start();
+
 $username = $_SESSION['username'];
 $full_name = $_SESSION['full_name'];
 
-
-
-
-// if (isset($_POST['update_stock']) && isset($_POST['cart'])) {
-//     $cart = $_POST['cart']; // Get the cart data
-//     print_r($cart); // Debugging, you can process it further
-// }
-// if (!isset($_GET['sale_id'])) {
-//     echo "Invalid sale ID.";
-//     exit();
-// }
-
-// $sale_id = $_GET['sale_id'];
-// $sql = "SELECT * FROM sales WHERE id = $sale_id";
-// $result = $conn->query($sql);
-// $sale = $result->fetch_assoc();
-
-// $sql = "SELECT i.name,s.sale_id, s.quantity, s.price FROM sale_items s 
-//         JOIN inventory i ON s.item_id = i.id WHERE s.sale_id = $sale_id";
-// $sale_items = $conn->query($sql);
-
-
-
-// Check if form is submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cart']) && is_array($_POST['cart'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cart']) && is_array($_POST['cart']) && isset($_POST['cus_id'])) {
     $cart = $_POST['cart'];
+    $customer_id = (int) $_POST['cus_id'];
+
+    $conn->begin_transaction(); // Start Transaction
+    $error = false;
 
     foreach ($cart as $item) {
-        // Validate the required fields
         if (!isset($item['name']) || !isset($item['quantity']) || !isset($item['price'])) {
-            echo "<p style='color:red;'>Invalid data for item.</p>";
-            continue;
+            echo "<p style='color:red;'>Invalid item data.</p>";
+            $error = true;
+            break;
         }
 
         $name = $conn->real_escape_string($item['name']);
         $quantity = (int) $item['quantity'];
+        $price = (float) $item['price'];
+        $total = $quantity * $price;
 
-        // Check if the item exists and has enough stock
-        $check_stock = "SELECT quantity FROM stock_items WHERE item_name = '$name'";
-        $result = $conn->query($check_stock);
-
+        // Check stock availability
+        $check_stock = "SELECT quantity FROM stock_items WHERE item_name = ?";
+        $stmt = $conn->prepare($check_stock);
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $available_quantity = (int) $row['quantity'];
 
             if ($available_quantity >= $quantity) {
-                // Update stock quantity
-                $update_sql = "UPDATE stock_items SET quantity = quantity - $quantity WHERE item_name = '$name'";
+                // Deduct stock quantity
+                $update_stock = "UPDATE stock_items SET quantity = quantity - ? WHERE item_name = ?";
+                $stmt = $conn->prepare($update_stock);
+                $stmt->bind_param("is", $quantity, $name);
+                if (!$stmt->execute()) {
+                    $error = true;
+                    break;
+                }
 
-                if ($conn->query($update_sql) === TRUE) {
-                    header("Location: Dashboard.php");
-                    echo "<p style='color:green;'>Stock updated for $name (Reduced by $quantity)</p>";
-                } else {
-                    echo "<p style='color:red;'>Error updating stock for $name: " . $conn->error . "</p>";
+                // Insert sale record into `sales_history`
+                $insert_sale = "INSERT INTO sales_history (cus_id, item_name, quantity, price, total) VALUES (?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($insert_sale);
+                $stmt->bind_param("isidd", $customer_id, $name, $quantity, $price, $total);
+                if (!$stmt->execute()) {
+                    $error = true;
+                    break;
                 }
             } else {
                 echo "<p style='color:red;'>Not enough stock for $name (Available: $available_quantity, Requested: $quantity)</p>";
+                $error = true;
+                break;
             }
         } else {
             echo "<p style='color:red;'>Item $name not found in stock.</p>";
+            $error = true;
+            break;
         }
     }
+
+    if ($error) {
+        $conn->rollback();
+        echo "<p style='color:red;'>Transaction failed! Please try again.</p>";
+    } else {
+        $conn->commit();
+        echo "<p style='color:green;'>Transaction successful! Stock updated.</p>";
+        header("Location: Dashboard.php");
+        exit();
+    }
 } else {
-    echo "<p style='color:red;'>No valid cart data received!</p>";
+    echo "<p style='color:red;'>Invalid request!</p>";
 }
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
     <title>Bill</title>
+    <link rel="stylesheet" href="./css/Bill.css">
     <script>
         function printBill() {
             window.print();
-            <link rel="stylesheet" href="./css/Bill.css">
         }
     </script>
 </head>
 
 <body>
-
-    <!-- ?>
-    <form action="bill.php?" method="post ">
-        <input type="hidden" name="id" value="<?php echo $row['sale_id'] ?>">
-        <input type="hidden" name="quantity" value="<?php echo $row['quantity']; ?>"> >
-        <input type="hidden" name="name" value="<?php echo $row['name']; ?>">
-        <button type="submit" name="update_stock" onclick="printBill()">Print Bill</button>
-    </form> -->
+    <button type="button" onclick="printBill()">Print Bill</button>
 </body>
 
 </html>
