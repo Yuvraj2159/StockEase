@@ -104,15 +104,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
 
 <body>
     <header class="dashboard-header">
-        <h1>Welcome to STOCKEASE Sales</h1>
+        <h1>Sales</h1>
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="Dashboard.php">Home</a></li>
-                <li><a href="Add_stock.php">Add Stock</a></li>
-                <li><a href="Inventory.php">Inventory</a></li>
-                <li><a href="add_customer.php">Customers</a></li>
-                <li><a href="#">Reports</a></li>
-                <li><a href="logout.php" class="logout-button" onclick="return confirmLogout()">Logout</a></li>
+            <li><a href="Dashboard.php">Back to Dashboard</a></li>
+                
             </ul>
         </nav>
     </header>
@@ -122,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
             <input type="text" name="search" class="search-box" placeholder="Enter customer name..."
                 value="<?= htmlspecialchars($searchQuery) ?>" required>
             <button type="submit" class="button">Search</button>
-            <button type="button" class="button" onclick="window.location.href='add_customer.php'">+ Add New
+            <button type="button" class="button" onclick="window.location.href='addcustomer.php'">+ Add New
                 Customer</button>
         </form>
 
