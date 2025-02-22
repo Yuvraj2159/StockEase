@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cart']) && is_array($_
                 $update_sql = "UPDATE stock_items SET quantity = quantity - $quantity WHERE item_name = '$name'";
 
                 if ($conn->query($update_sql) === TRUE) {
-                    header("Location: inventory.php");
+                    header("Location: Dashboard.php");
                     echo "<p style='color:green;'>Stock updated for $name (Reduced by $quantity)</p>";
                 } else {
                     echo "<p style='color:red;'>Error updating stock for $name: " . $conn->error . "</p>";
@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['cart']) && is_array($_
     <script>
         function printBill() {
             window.print();
+            <link rel="stylesheet" href="./css/Bill.css">
         }
     </script>
 </head>

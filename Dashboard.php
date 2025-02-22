@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id'])) {
         <h1>Welcome to STOCKEASE Dashboard</h1>
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="#">Home</a></li>
+                <li><a href="Dashboard.php">Home</a></li>
                 <li><a href="Add_stock.php">Add Stock</a></li>
                 <li><a href="Inventory.php">Inventory</a></li>
                 <li><a href="add_customer.php">Customers</a></li>
@@ -56,9 +56,9 @@ if (!isset($_SESSION['user_id'])) {
                 <a href="add_customer.php" class="btn">Customers</a>
             </div>
             <div class="feature">
-                <h3>Generate Reports</h3>
-                <p>Create detailed reports to analyze stock performance.</p>
-                <a href="Generate_report.php" class="btn">Generate Report</a>
+                <h3>Sales</h3>
+                <p>Sell Products to Customer</p>
+                <a href="Customer_Sales.php" class="btn">Search Customer</a>
             </div>
         </section>
     </main>
