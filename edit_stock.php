@@ -105,7 +105,7 @@ $conn->close();
         <h1>Edit Stock</h1>
         <nav class="dashboard-nav">
             <ul>
-                <li><a href="Dashboard.php">Back to Dashboard</a></li>
+                <li><a href="Inventory.php">Back to Inventory</a></li>
             </ul>
         </nav>
     </header>

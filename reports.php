@@ -1,48 +1,67 @@
 <?php
 include 'connection/config.php';
 
-// Get selected date and time range or set default (last 30 days, full-day time range)
+// Set Nepal's timezone
+date_default_timezone_set('Asia/Kathmandu');
+
+// Get selected filter or set default
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'last_30_days';
 $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : '';
 $end_date = isset($_GET['end_date']) ? $_GET['end_date'] : '';
+$category_filter = isset($_GET['category']) ? $_GET['category'] : '';
 
+// Get today's and yesterday's date
+$today = date('Y-m-d');
+$yesterday = date('Y-m-d', strtotime('-1 day'));
+
+// Determine start and end dates based on the selected filter
 switch ($filter) {
     case 'today':
-        $start_date = $end_date = date('Y-m-d');
+        $start_date = $today;
+        $end_date = $today;
         break;
     case 'yesterday':
-        $start_date = $end_date = date('Y-m-d', strtotime('-1 day'));
-        break;
-    case 'past_week': // Previous full week (Monday to Sunday)
-        $start_date = date('Y-m-d', strtotime('monday last week'));
-        $end_date = date('Y-m-d', strtotime('sunday last week'));
-        break;
-    case 'this_week':
-        $start_date = date('Y-m-d', strtotime('monday this week'));
-        $end_date = date('Y-m-d');
+        $start_date = $yesterday;
+        $end_date = $yesterday;
         break;
     default:
         if (empty($start_date) || empty($end_date)) {
             $start_date = date('Y-m-d', strtotime('-30 days'));
-            $end_date = date('Y-m-d');
+            $end_date = $today;
         }
 }
 
-$start_time = '00:00:00';
-$end_time = '23:59:59';
+// Ensure time range is included in SQL query
+$start_datetime = "$start_date 00:00:00";
+$end_datetime = "$end_date 23:59:59";
 
-// Fetch filtered sales data
-$sql = "SELECT sh.id, c.cus_name, c.email, c.phone, sh.item_name, sh.quantity, sh.price, sh.total, sh.sale_date
+// Fetch available categories for dropdown
+$category_query = "SELECT DISTINCT category FROM stock_items";
+$category_result = $conn->query($category_query);
+
+// Fetch sales data based on the filter
+$sql = "SELECT sh.id, c.cus_name, c.email, c.phone, sh.item_name, si.category, sh.quantity, sh.price, sh.total, sh.sale_date
         FROM sales_history sh
         JOIN customers c ON sh.cus_id = c.cus_id
-        WHERE sh.sale_date BETWEEN ? AND ?
-        ORDER BY sh.sale_date ASC";
+        JOIN stock_items si ON sh.item_name = si.item_name
+        WHERE sh.sale_date BETWEEN ? AND ?";
 
-$start_datetime = "$start_date $start_time";
-$end_datetime = "$end_date $end_time";
+// Apply category filter if selected
+if (!empty($category_filter)) {
+    $sql .= " AND si.category = ?";
+}
+
+$sql .= " ORDER BY sh.sale_date ASC";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $start_datetime, $end_datetime);
+
+// Bind parameters based on category filter
+if (!empty($category_filter)) {
+    $stmt->bind_param("sss", $start_datetime, $end_datetime, $category_filter);
+} else {
+    $stmt->bind_param("ss", $start_datetime, $end_datetime);
+}
+
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -50,7 +69,11 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
+    <meta charset="UTF-8">
+    <title>Sales Reports</title>
+    <link rel="stylesheet" href="./css/Dashboard.css">
+    <link rel="stylesheet" href="./css/Stock.css">
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -89,13 +112,9 @@ $result = $stmt->get_result();
             margin-top: 20px;
         }
     </style>
-    <meta charset="UTF-8">
-    <title>Sales Reports</title>
-    <link rel="stylesheet" href="./css/Dashboard.css">
-    <link rel="stylesheet" href="./css/Stock.css">
-    <link rel="stylesheet" href="./css/reports.css">
 </head>
 <body>
+
 <header class="dashboard-header">
     <h1>Sales Reports</h1>
     <nav class="dashboard-nav">
@@ -112,8 +131,6 @@ $result = $stmt->get_result();
         <option value="last_30_days" <?= ($filter == 'last_30_days') ? 'selected' : ''; ?>>Last 30 Days</option>
         <option value="today" <?= ($filter == 'today') ? 'selected' : ''; ?>>Today</option>
         <option value="yesterday" <?= ($filter == 'yesterday') ? 'selected' : ''; ?>>Yesterday</option>
-        <option value="past_week" <?= ($filter == 'past_week') ? 'selected' : ''; ?>>Past Week</option>
-        <option value="this_week" <?= ($filter == 'this_week') ? 'selected' : ''; ?>>This Week</option>
     </select>
     
     <br><br>
@@ -123,7 +140,21 @@ $result = $stmt->get_result();
     
     <label for="end_date">End Date:</label>
     <input type="date" name="end_date" value="<?= $end_date; ?>">
-    
+
+    <br><br>
+
+    <label for="category">Category:</label>
+    <select name="category" onchange="this.form.submit()">
+        <option value="">All Categories</option>
+        <?php while ($cat = $category_result->fetch_assoc()): ?>
+            <option value="<?= htmlspecialchars($cat['category']); ?>" <?= ($category_filter == $cat['category']) ? 'selected' : ''; ?>>
+                <?= htmlspecialchars($cat['category']); ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+
+    <br><br>
+
     <button type="submit">Filter</button>
 </form>
 
@@ -138,6 +169,7 @@ $result = $stmt->get_result();
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Item Name</th>
+                <th>Category</th>
                 <th>Quantity</th>
                 <th>Price (₹)</th>
                 <th>Total (₹)</th>
@@ -152,6 +184,7 @@ $result = $stmt->get_result();
                     <td><?= htmlspecialchars($row['email']); ?></td>
                     <td><?= htmlspecialchars($row['phone']); ?></td>
                     <td><?= htmlspecialchars($row['item_name']); ?></td>
+                    <td><?= htmlspecialchars($row['category']); ?></td>
                     <td><?= $row['quantity']; ?></td>
                     <td>₹<?= number_format($row['price'], 2); ?></td>
                     <td><strong>₹<?= number_format($row['total'], 2); ?></strong></td>
@@ -161,7 +194,7 @@ $result = $stmt->get_result();
         </tbody>
     </table>
 <?php else: ?>
-    <p>No sales records found for the selected date range.</p>
+    <p>No sales records found for the selected date range and category.</p>
 <?php endif; ?>
 
 </body>
