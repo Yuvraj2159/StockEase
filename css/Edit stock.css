@@ -11,9 +11,9 @@ body {
     text-align: center;
     background: linear-gradient(135deg, #255f85, #153b4c);
     color: white;
-    padding: 20px 0;
-    font-size: 24px;
-    font-weight: 600;
+    padding: 15px 0; /* Reduce padding */
+    font-size: 20px; /* Reduce font size */
+    font-weight: 500; /* Slightly lighter weight */
     border-radius: 10px;
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
 }
