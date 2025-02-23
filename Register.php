@@ -1,4 +1,3 @@
-
 <?php
 // Include database configuration
 include('./connection/config.php');
@@ -25,7 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt->bind_param("ssss", $full_name, $email, $username, $hashed_password);
 
     if ($stmt->execute()) {
-        echo "Registration successful!";
+        // Redirect to login page after successful registration
+        header("Location: login.php");
+        exit;
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -35,8 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $conn->close();
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <button type="submit">Register</button>
         </form>
-        
     </div>
 </body>
 </html>
