@@ -1,0 +1,58 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #161616;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Developer Section */
+.developers-section {
+    text-align: center;
+    padding: 20px;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Developer Container */
+.developer-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* Individual Developer Card */
+.developer {
+    background: #1c1c1c;
+    border-radius: 10px;
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    position: relative;
+}
+
+/* Developer Image */
+.developer img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Name & Role */
+.developer h3 {
+    font-size: 20px;
+    margin: 10px 0 5px;
+}
+
+.developer p {
+    font-size: 16px;
+    color: #aaa;
+}
